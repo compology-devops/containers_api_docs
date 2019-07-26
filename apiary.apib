@@ -42,64 +42,9 @@ This level of error will be accompanied by an HTTP body containing JSON data wit
 ### 500s
 Server-side or network errors will be indicated by HTTP responses with status codes between 500-599.
 
-<!-- ===================================================== -->
 
 
-### REST Resource: Customers
-
-#### GET `/customers/<compology customer id>/containers`
-Return a list of containers located at the specified customer's location(s).
-The list is paginated, with 100 records per page.
-
-#### Parameters
- * `page` optional
-
-#### Request example
-```bash
-export BASE=https://containers-api.compology.com/v1
-export TOKEN=<your auth token>
-curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" ${BASE}/customers/ABC/containers?page=0
-```
-
-#### Response example
-```json
-[
-  {
-    "id":"COMPOLOGYINC_04",
-    "containerType":"roll off",
-    "contentType":"refuse",
-    "cubicYards":20,
-    "description":"20-02",
-    "externalId":"1ST4P4WFx6",
-    "hasAccuratePosition":true,
-    "lastClassifiedCameraBlocked":null,
-    "lastGpsIsAccurate":true,
-    "lastImageTimestamp":"2018-04-18T18:07:41.129Z",
-    "lastImageUrl":"https://images.compology.com/1/raw_device_data/7ea64852-0215-4541-8a87-c4ea56f64734",
-    "level":5,
-    "location":{
-      "id":null,
-      "description":null,
-      "externalId":null,
-      "street":null,
-      "city":null,
-      "state":null,
-      "zip":null
-    },
-    "locationUpdatedAt":"2018-04-19T01:02:44.207Z",
-    "latitude":38.8977,
-    "longitude":-77.0365,
-    "maybeLastEmptiedAt":"2017-06-16T22:55:58.527Z",
-    "pendingClassification":true,
-    "positionAccuracy":3,
-    "technicianAssigned":true,
-    "updatedAt":"2018-10-18T05:17:08.359Z"
-  },
-  ...
-]
-```
-
-## REST Resource: Containers [/containers]
+## Containers [/containers]
 
 ### List All Containers [GET]
 
@@ -117,8 +62,8 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
 
     + Body
 
-         {
-           "payload": [
+            {
+            "payload": [
              {
               "id": "DRAGNDROPWASTE_00022",
               "containerType": "roll off",
@@ -174,11 +119,356 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
               "technicianAssigned": false,
               "updatedAt": "2019-07-26T20:41:33.851Z"
             }
-          ],
-          "client": [
-            "X-Compology-Version: 2019-07-25/1"
-          ]
-        }
+            ],
+              "client": [
+                "X-Compology-Version: 2019-07-25/1"
+              ]
+            }
+
+## Containers for a Customer [/customers/:customerId/containers]
+
+### List All Containers [GET]
+
+This endpoint uses the *internal* ID for the Customer.
+
+#### Parameters
+ * `cursor` optional
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/<customer id>/containers
+```
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+              "payload": [
+                {
+                  "id": "DRAGNDROPWASTE_00014",
+                  "containerType": "roll off",
+                  "contentType": "refuse",
+                  "cubicYards": 20,
+                  "description": "20-0009",
+                  "externalId": "YRTRPS4HCB91",
+                  "hasAccuratePosition": true,
+                  "lastClassifiedCameraBlocked": false,
+                  "lastGpsIsAccurate": true,
+                  "lastImageTimestamp": "2019-07-26T22:19:07.799Z",
+                  "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/1c33ebda-b16f-4056-bed7-04bcbcdeabba",
+                  "level": 70,
+                  "location": {
+                    "id": "71e2aac9-c884-1f60-8559-11f12747b600",
+                    "externalId": null,
+                    "description": "Inbound Order Testing",
+                    "street": "473 Tehama Street, #B",
+                    "city": "San Francisco",
+                    "state": "CA",
+                    "postalCode": "94103",
+                    "zip": "94103"
+                  },
+                  "locationUpdatedAt": "2019-07-19T19:52:40.988Z",
+                  "latitude": 30.312946,
+                  "longitude": -97.986297,
+                  "maybeLastEmptiedAt": "2019-06-18T20:10:17.000Z",
+                  "pendingClassification": true,
+                  "positionAccuracy": 9.3,
+                  "technicianAssigned": false,
+                  "updatedAt": "2019-07-26T22:21:24.240Z"
+                }
+              ],
+              "client": [ 
+                "X-Compology-Version: 2019-07-25/1"
+              ]
+            }
+            
+## Containers for a Customer by external ID [/customers/e/:externalCustomerId/containers]
+
+### List All Containers [GET]
+
+This endpoint uses the *external* ID for the Customer.
+
+#### Parameters
+ * `cursor` optional
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external customer id>/containers
+```
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+              "payload": [
+                {
+                  "id": "DRAGNDROPWASTE_00014",
+                  "containerType": "roll off",
+                  "contentType": "refuse",
+                  "cubicYards": 20,
+                  "description": "20-0009",
+                  "externalId": "YRTRPS4HCB91",
+                  "hasAccuratePosition": true,
+                  "lastClassifiedCameraBlocked": false,
+                  "lastGpsIsAccurate": true,
+                  "lastImageTimestamp": "2019-07-26T22:19:07.799Z",
+                  "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/1c33ebda-b16f-4056-bed7-04bcbcdeabba",
+                  "level": 70,
+                  "location": {
+                    "id": "71e2aac9-c884-1f60-8559-11f12747b600",
+                    "externalId": null,
+                    "description": "Inbound Order Testing",
+                    "street": "473 Tehama Street, #B",
+                    "city": "San Francisco",
+                    "state": "CA",
+                    "postalCode": "94103",
+                    "zip": "94103"
+                  },
+                  "locationUpdatedAt": "2019-07-19T19:52:40.988Z",
+                  "latitude": 30.312946,
+                  "longitude": -97.986297,
+                  "maybeLastEmptiedAt": "2019-06-18T20:10:17.000Z",
+                  "pendingClassification": true,
+                  "positionAccuracy": 9.3,
+                  "technicianAssigned": false,
+                  "updatedAt": "2019-07-26T22:21:24.240Z"
+                }
+              ],
+              "client": [ 
+                "X-Compology-Version: 2019-07-25/1"
+              ]
+            }
 
 
+## REST Resource: Device Posts for a Container [/containers/:containerId/device_posts]
 
+### List All Device Posts [GET]
+
+#### Parameters
+ * `cursor` optional
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/device_posts
+```
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+              "payload": [
+                {
+                  "id": "9c33ebda-b16f-1111-1111-04bcbcdeabba",
+                  "organizationId": "dragndropwaste",
+                  "container": {
+                    "id": "DRAGNDROPWASTE_00014",
+                    "contentType": "refuse",
+                    "cubicYards": 20,
+                    "description": "20-0009",
+                    "externalId": "YRTRPS4HCB91"
+                  },
+                  "customer": {
+                    "id": "688f1111-1111-1111-1111-adcf55452f6c",
+                    "externalId": "abc123",
+                    "name": "Alicia Marie Fricazee"
+                  },
+                  "location": {
+                    "id": "71e21111-1111-1111-1111-75f12747b600",
+                    "externalId": null,
+                    "description": "Inbound Order Testing"
+                  },
+                  "occurredAt": "2019-07-26T22:19:07.799Z",
+                  "level": null,
+                  "maybeWasEmptied": null,
+                  "maybeEmptyOccurredAt": null,
+                  "latitude": 30.312946,
+                  "longitude": -97.986297,
+                  "latLonRadius": 9.3,
+                  "cameraBlocked": null,
+                  "imageUrl": "https://images.staging.compology.com/1/raw_device_data/9c331111-1111-1111-1111-04bcbcdeabba"
+                },
+                {
+                  "id": "18b41111-1111-1111-1111-c0fcbb27485c",
+                  "organizationId": "dragndropwaste",
+                  "container": {
+                    "id": "DRAGNDROPWASTE_00014",
+                    "contentType": "refuse",
+                    "cubicYards": 20,
+                    "description": "20-0009",
+                    "externalId": "YRTRPS4HCB91"
+                  },
+                  "customer": {
+                    "id": "688f1111-1111-1111-1111-adcf55452f6c",
+                    "externalId": "abc123",
+                    "name": "Alicia Marie Fricazee"
+                  },
+                  "location": {
+                    "id": "71e21111-1111-1111-1111-75f12747b600",
+                    "externalId": null,
+                    "description": "Inbound Order Testing"
+                  },
+                  "occurredAt": "2019-07-26T18:07:58.364Z",
+                  "level": null,
+                  "maybeWasEmptied": null,
+                  "maybeEmptyOccurredAt": null,
+                  "latitude": 30.312938,
+                  "longitude": -97.986305,
+                  "latLonRadius": 25,
+                  "cameraBlocked": null,
+                  "imageUrl": "https://images.staging.compology.com/1/raw_device_data/18b41111-1111-1111-1111-c0fcbb27485c"
+                },
+                {
+                  "id": "12861111-1111-1111-1111-b159f4ab04ff",
+                  "organizationId": "dragndropwaste",
+                  "container": {
+                    "id": "DRAGNDROPWASTE_00014",
+                    "contentType": "refuse",
+                    "cubicYards": 20,
+                    "description": "20-0009",
+                    "externalId": "YRTRPS4HCB91"
+                  },
+                  "customer": {
+                    "id": null,
+                    "externalId": null,
+                    "name": null
+                  },
+                  "location": {
+                    "id": null,
+                    "externalId": null,
+                    "description": null
+                  },
+                  "occurredAt": "2019-06-28T04:24:40.831Z",
+                  "level": 35,
+                  "maybeWasEmptied": false,
+                  "maybeEmptyOccurredAt": null,
+                  "latitude": 30.48846,
+                  "longitude": -98.201461,
+                  "latLonRadius": 6.5,
+                  "cameraBlocked": false,
+                  "imageUrl": "https://images.staging.compology.com/1/raw_device_data/12861111-1111-1111-1111-b159f4ab04ff"
+                }
+              ],
+              "client": [
+                "X-Compology-Version: 2019-07-25/1"
+              ],
+              "prev": "https://containers-api.staging.compology.com/v2/containers/DRAGNDROPWASTE_00014/device_posts?cursor=eyJkaXJlY3Rpb24iOiJwcmV2aW91cyIsInJhd0RldmljZURhdGFJbWFnZVRpbWVzdGFtcCI6IjIwMTktMDctMjZUMjI6MTk6MDcuNzk5WiIsInJhd0RldmljZURhdGFJZCI6IjljMzNlYmRhLWIxNmYtNDA1Ni1iZWQ3LTA0YmNiY2RlYWJiYSJ9",
+              "next": "https://containers-api.staging.compology.com/v2/containers/DRAGNDROPWASTE_00014/device_posts?cursor=eyJkaXJlY3Rpb24iOiJuZXh0IiwicmF3RGV2aWNlRGF0YUltYWdlVGltZXN0YW1wIjoiMjAxOS0wNi0yOFQwNDoyNDo0MC44MzFaIiwicmF3RGV2aWNlRGF0YUlkIjoiMTI4NjM1MDEtMjAwMy00ZDNkLTk5NDQtYjE1OWY0YWIwNGZmIn0%3D"
+            }
+            
+## REST Resource: Device Post by ID [/containers/:containerId/device_posts/:devicePostId]
+
+### Get Device Post [GET]
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/device_posts/<device post id>
+```
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+              "payload": {
+                "id": "770771d5-b189-4b6e-aeb4-53e7958e5fc0",
+                "organizationId": "dragndropwaste",
+                "container": {
+                  "id": "DRAGNDROPWASTE_00014",
+                  "contentType": "refuse",
+                  "cubicYards": 20,
+                  "description": "20-0009",
+                  "externalId": "YRTRPS4HCB91"
+                },  
+                "customer": {
+                  "id": "688f1525-206e-447a-940c-adcf55452f6c",
+                  "externalId": "abc123",
+                  "name": "Alicia Marie Fricazee"
+                },  
+                "location": {
+                  "id": "71e2aac9-c884-4f60-8559-75f12747b600",
+                  "externalId": null,
+                  "description": "Inbound Order Testing"
+                },  
+                "occurredAt": "2019-06-27T19:59:36.534Z",
+                "level": 30,
+                "maybeWasEmptied": false,
+                "maybeEmptyOccurredAt": null,
+                "latitude": 30.488445,
+                "longitude": -98.201553,
+                "latLonRadius": 24,
+                "cameraBlocked": false,
+                "imageUrl": "https://images.staging.compology.com/1/raw_device_data/770771d5-b189-4b6e-aeb4-53e7958e5fc0"
+              },  
+              "client": [
+                "X-Compology-Version: 2019-07-25/1"
+              ]   
+            }
+
+## REST Resource: Device Post by Timestamp [/containers/:containerId/device_posts/occurred_at/:timestamp]
+
+### Get Device Post [GET]
+
+This will return the Device Post for the specified Container that occurred at
+the specified time.  If no Device Post occurred at *exactly* the specified time,
+it will return the **latest** Device Post that occurred **before** the specified
+time.
+
+The `timestamp` must be specified in a valid ISO-8601 format.
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/device_posts/occurred_at/<timestamp>
+```
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+              "payload": {
+                "id": "770771d5-b189-4b6e-aeb4-53e7958e5fc0",
+                "organizationId": "dragndropwaste",
+                "container": {
+                  "id": "DRAGNDROPWASTE_00014",
+                  "contentType": "refuse",
+                  "cubicYards": 20,
+                  "description": "20-0009",
+                  "externalId": "YRTRPS4HCB91"
+                },  
+                "customer": {
+                  "id": "688f1525-206e-447a-940c-adcf55452f6c",
+                  "externalId": "abc123",
+                  "name": "Alicia Marie Fricazee"
+                },  
+                "location": {
+                  "id": "71e2aac9-c884-4f60-8559-75f12747b600",
+                  "externalId": null,
+                  "description": "Inbound Order Testing"
+                },  
+                "occurredAt": "2019-06-27T19:59:36.534Z",
+                "level": 30,
+                "maybeWasEmptied": false,
+                "maybeEmptyOccurredAt": null,
+                "latitude": 30.488445,
+                "longitude": -98.201553,
+                "latLonRadius": 24,
+                "cameraBlocked": false,
+                "imageUrl": "https://images.staging.compology.com/1/raw_device_data/770771d5-b189-4b6e-aeb4-53e7958e5fc0"
+              },  
+              "client": [
+                "X-Compology-Version: 2019-07-25/1"
+              ]   
+            }
