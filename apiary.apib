@@ -1,80 +1,184 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: http://containers-api.compology.com/
 
-# Containers API
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+# Compology Containers API
 
-## Questions Collection [/questions]
+**VERSION 2 (v2) FOR RELEASE**
 
-### List All Questions [GET]
+The Compology API allows you to query data about your containers.
+
+The API is based on REST principles, making it conform to industry-standard
+approaches, and making it easy to implement and test clients. You can use
+**curl** to test URLs and you can use any programming language to interact
+with the API.
+
+Use cases of this API include (but are not limited to):
+
+ * Getting a list of containers
+ * Getting a list of containers for a specific customer
+
+
+## Authentication
+API access will be supported only via HTTPS.
+
+Users of this API will receive a JWT token. When a client makes a request to the API, this token shall be included in the `Authorization` header.
+
+The header shall be formatted thusly: `Bearer <your token>`.
+
+## Rate limiting
+Excessive requests to this API will be denied via rate limiting.
+
+## Error handling
+
+### 200s
+Successes will be HTTP responses with status codes between 200-299.
+
+### 400s
+Client errors will be indicated by HTTP responses with status codes between 400-499.
+
+This level of error will be accompanied by an HTTP body containing JSON data with descriptive information about the error.
+
+### 500s
+Server-side or network errors will be indicated by HTTP responses with status codes between 500-599.
+
+<!-- ===================================================== -->
+
+
+### REST Resource: Customers
+
+#### GET `/customers/<compology customer id>/containers`
+Return a list of containers located at the specified customer's location(s).
+The list is paginated, with 100 records per page.
+
+#### Parameters
+ * `page` optional
+
+#### Request example
+```bash
+export BASE=https://containers-api.compology.com/v1
+export TOKEN=<your auth token>
+curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" ${BASE}/customers/ABC/containers?page=0
+```
+
+#### Response example
+```json
+[
+  {
+    "id":"COMPOLOGYINC_04",
+    "containerType":"roll off",
+    "contentType":"refuse",
+    "cubicYards":20,
+    "description":"20-02",
+    "externalId":"1ST4P4WFx6",
+    "hasAccuratePosition":true,
+    "lastClassifiedCameraBlocked":null,
+    "lastGpsIsAccurate":true,
+    "lastImageTimestamp":"2018-04-18T18:07:41.129Z",
+    "lastImageUrl":"https://images.compology.com/1/raw_device_data/7ea64852-0215-4541-8a87-c4ea56f64734",
+    "level":5,
+    "location":{
+      "id":null,
+      "description":null,
+      "externalId":null,
+      "street":null,
+      "city":null,
+      "state":null,
+      "zip":null
+    },
+    "locationUpdatedAt":"2018-04-19T01:02:44.207Z",
+    "latitude":38.8977,
+    "longitude":-77.0365,
+    "maybeLastEmptiedAt":"2017-06-16T22:55:58.527Z",
+    "pendingClassification":true,
+    "positionAccuracy":3,
+    "technicianAssigned":true,
+    "updatedAt":"2018-10-18T05:17:08.359Z"
+  },
+  ...
+]
+```
+
+## REST Resource: Containers [/containers]
+
+### List All Containers [GET]
+
+#### Parameters
+ * `cursor` optional
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
+```
 
 + Response 200 (application/json)
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
-
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ Request (application/json)
-
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
-
     + Body
 
+         {
+           "payload": [
+             {
+              "id": "DRAGNDROPWASTE_00022",
+              "containerType": "roll off",
+              "contentType": "refuse",
+              "cubicYards": 20,
+              "description": "20-0013",
+              "externalId": "7J2TT262M2PX",
+              "hasAccuratePosition": true,
+              "lastClassifiedCameraBlocked": false,
+              "lastGpsIsAccurate": true,
+              "lastImageTimestamp": "2018-10-15T20:06:19.780Z",
+              "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/36736d3c-1111-1111-bb8f-c7c82e7fc79e",
+              "level": 0,
+              "location": {},
+              "locationUpdatedAt": "2018-08-11T06:03:51.922Z",
+              "latitude": 37.771789,
+              "longitude": -122.407272,
+              "maybeLastEmptiedAt": "2018-06-12T19:58:11.000Z",
+              "pendingClassification": true,
+              "positionAccuracy": 15,
+              "technicianAssigned": true,
+              "updatedAt": "2019-07-23T23:54:26.057Z"
+            },
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+              "id": "DRAGNDROPWASTE_00023",
+              "containerType": "roll off",
+              "contentType": "refuse",
+              "cubicYards": 20,
+              "description": "20-0014",
+              "externalId": "NDHSYG067HN4",
+              "hasAccuratePosition": true,
+              "lastClassifiedCameraBlocked": true,
+              "lastGpsIsAccurate": true,
+              "lastImageTimestamp": "2019-07-26T20:39:56.922Z",
+              "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/1da6d926-1111-1111-bb47-0ed886d837f1",
+              "level": 100,
+              "location": {
+                "id": "090cfb73-1111-1111-a655-789838c8d804",
+                "externalId": null,
+                "description": "Travis County Landfill",
+                "street": "9600 812 Rd",
+                "city": "Austin",
+                "state": "Texas",
+                "postalCode": "78719",
+                "zip": "78719"
+              },
+              "locationUpdatedAt": "2019-07-25T22:39:55.392Z",
+              "latitude": 30.210447,
+              "longitude": -97.850021,
+              "maybeLastEmptiedAt": "2018-06-27T21:02:13.000Z",
+              "pendingClassification": false,
+              "positionAccuracy": 30,
+              "technicianAssigned": false,
+              "updatedAt": "2019-07-26T20:41:33.851Z"
             }
+          ],
+          "client": [
+            "X-Compology-Version: 2019-07-25/1"
+          ]
+        }
+
+
+
