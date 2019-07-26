@@ -17,6 +17,7 @@ Use cases of this API include (but are not limited to):
 
  * Getting a list of containers
  * Getting a list of containers for a specific customer
+ * Getting a list of device posts for a specific container
 
 
 ## Authentication
@@ -42,6 +43,26 @@ This level of error will be accompanied by an HTTP body containing JSON data wit
 ### 500s
 Server-side or network errors will be indicated by HTTP responses with status codes between 500-599.
 
+## Standard Responses
+
+Non-error responses from this API will be a single JSON object. Top-level
+keys of this object are standardized:
+
+ * "payload" - This is the main body of the response and usually what the API
+   client is most interested in.
+ * "client" - This contains advised or required HTTP headers and other
+   information that the client may wish to include in requests.
+ * "next" - *optional* - if the HTTP REST resource is a collection, this
+   will be a link to the next page in the collection.
+ * "prev" - *optional* - if the HTTP REST resource is a collection, this
+   will be a link to the previous page in the collection.
+
+Note, "next" and "prev" keys can sometimes point to an empty page. For
+example, if a client navigates past the last page or previous to the
+first page. It is up to the client to determine the boundaries of the
+collection, and not rely on "next" and "prev" to decide this. This can
+easily be done by starting at the first page and iterating forward until
+the API responds with an empty page.
 
 
 ## Containers [/containers]
@@ -75,7 +96,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
               "lastClassifiedCameraBlocked": false,
               "lastGpsIsAccurate": true,
               "lastImageTimestamp": "2018-10-15T20:06:19.780Z",
-              "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/36736d3c-1111-1111-bb8f-c7c82e7fc79e",
+              "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/36731111-1111-1111-1111-c7c82e7fc79e",
               "level": 0,
               "location": {},
               "locationUpdatedAt": "2018-08-11T06:03:51.922Z",
@@ -98,10 +119,10 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
               "lastClassifiedCameraBlocked": true,
               "lastGpsIsAccurate": true,
               "lastImageTimestamp": "2019-07-26T20:39:56.922Z",
-              "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/1da6d926-1111-1111-bb47-0ed886d837f1",
+              "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/1da61111-1111-1111-1111-0ed886d837f1",
               "level": 100,
               "location": {
-                "id": "090cfb73-1111-1111-a655-789838c8d804",
+                "id": "090c1111-1111-1111-1111-789838c8d804",
                 "externalId": null,
                 "description": "Travis County Landfill",
                 "street": "9600 812 Rd",
@@ -158,10 +179,10 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/<customer id>/co
                   "lastClassifiedCameraBlocked": false,
                   "lastGpsIsAccurate": true,
                   "lastImageTimestamp": "2019-07-26T22:19:07.799Z",
-                  "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/1c33ebda-b16f-4056-bed7-04bcbcdeabba",
+                  "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/1c331111-1111-1111-1111-04bcbcdeabba",
                   "level": 70,
                   "location": {
-                    "id": "71e2aac9-c884-1f60-8559-11f12747b600",
+                    "id": "71e21111-1111-1111-1111-11f12747b600",
                     "externalId": null,
                     "description": "Inbound Order Testing",
                     "street": "473 Tehama Street, #B",
@@ -218,10 +239,10 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external cust
                   "lastClassifiedCameraBlocked": false,
                   "lastGpsIsAccurate": true,
                   "lastImageTimestamp": "2019-07-26T22:19:07.799Z",
-                  "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/1c33ebda-b16f-4056-bed7-04bcbcdeabba",
+                  "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/1c331111-1111-1111-1111-04bcbcdeabba",
                   "level": 70,
                   "location": {
-                    "id": "71e2aac9-c884-1f60-8559-11f12747b600",
+                    "id": "71e21111-1111-1111-1111-11f12747b600",
                     "externalId": null,
                     "description": "Inbound Order Testing",
                     "street": "473 Tehama Street, #B",
@@ -263,11 +284,11 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
 + Response 200 (application/json)
 
     + Body
-    
+
             {
               "payload": [
                 {
-                  "id": "9c33ebda-b16f-1111-1111-04bcbcdeabba",
+                  "id": "9c331111-1111-1111-1111-04bcbcdeabba",
                   "organizationId": "dragndropwaste",
                   "container": {
                     "id": "DRAGNDROPWASTE_00014",
@@ -408,7 +429,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
                 "longitude": -98.201553,
                 "latLonRadius": 24,
                 "cameraBlocked": false,
-                "imageUrl": "https://images.staging.compology.com/1/raw_device_data/770771d5-b189-4b6e-aeb4-53e7958e5fc0"
+                "imageUrl": "https://images.staging.compology.com/1/raw_device_data/77071111-1111-1111-1111-53e7958e5fc0"
               },  
               "client": [
                 "X-Compology-Version: 2019-07-25/1"
@@ -439,7 +460,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
     
             {
               "payload": {
-                "id": "770771d5-b189-4b6e-aeb4-53e7958e5fc0",
+                "id": "77071111-1111-1111-1111-53e7958e5fc0",
                 "organizationId": "dragndropwaste",
                 "container": {
                   "id": "DRAGNDROPWASTE_00014",
@@ -449,12 +470,12 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
                   "externalId": "YRTRPS4HCB91"
                 },  
                 "customer": {
-                  "id": "688f1525-206e-447a-940c-adcf55452f6c",
+                  "id": "688f1111-1111-1111-1111-adcf55452f6c",
                   "externalId": "abc123",
                   "name": "Alicia Marie Fricazee"
                 },  
                 "location": {
-                  "id": "71e2aac9-c884-4f60-8559-75f12747b600",
+                  "id": "71e21111-1111-1111-1111-75f12747b600",
                   "externalId": null,
                   "description": "Inbound Order Testing"
                 },  
@@ -466,7 +487,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
                 "longitude": -98.201553,
                 "latLonRadius": 24,
                 "cameraBlocked": false,
-                "imageUrl": "https://images.staging.compology.com/1/raw_device_data/770771d5-b189-4b6e-aeb4-53e7958e5fc0"
+                "imageUrl": "https://images.staging.compology.com/1/raw_device_data/77071111-1111-1111-1111-53e7958e5fc0"
               },  
               "client": [
                 "X-Compology-Version: 2019-07-25/1"
