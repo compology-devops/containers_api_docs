@@ -19,11 +19,18 @@ Use cases of this API include (but are not limited to):
  * Getting a list of containers for a specific customer
  * Getting a list of device posts for a specific container
 
+## A note about using Apiary.io documentation
+
+This document is hosted on Apiary.io. To see endpoints and example responses,
+click on the "200 OK" buttons. This will open a panel showing more details.
+
+The button labeled "Try console" is not supported at this time.
 
 ## Authentication
 API access will be supported only via HTTPS.
 
-Users of this API will receive a JWT token. When a client makes a request to the API, this token shall be included in the `Authorization` header.
+Users of this API will receive a JWT token. When a client makes a request to
+the API, this token shall be included in the `Authorization` header.
 
 The header shall be formatted thusly: `Bearer <your token>`.
 
@@ -36,33 +43,54 @@ Excessive requests to this API will be denied via rate limiting.
 Successes will be HTTP responses with status codes between 200-299.
 
 ### 400s
-Client errors will be indicated by HTTP responses with status codes between 400-499.
+Client errors will be indicated by HTTP responses with status codes
+between 400-499.
 
-This level of error will be accompanied by an HTTP body containing JSON data with descriptive information about the error.
+This level of error will be accompanied by an HTTP body containing JSON
+data with descriptive information about the error.
 
 ### 500s
-Server-side or network errors will be indicated by HTTP responses with status codes between 500-599.
+Server-side or network errors will be indicated by HTTP responses with
+status codes between 500-599.
 
 ## Standard Responses
 
 Non-error responses from this API will be a single JSON object. Top-level
 keys of this object are standardized:
 
- * "payload" - This is the main body of the response and usually what the API
+```json
+{
+  "payload": ...
+  "prev": ...
+  "next": ...
+  "client": [
+    ...
+  ]
+}
+```
+
+ * "payload" - The main body of the response and usually what the API
    client is most interested in.
+ * "prev" - *optional* -  A link to the previous page in the collection.
+ * "next" - *optional* - A link to the next page in the collection.
  * "client" - This contains advised or required HTTP headers and other
    information that the client may wish to include in requests.
- * "next" - *optional* - if the HTTP REST resource is a collection, this
-   will be a link to the next page in the collection.
- * "prev" - *optional* - if the HTTP REST resource is a collection, this
-   will be a link to the previous page in the collection.
 
-Note, "next" and "prev" keys can sometimes point to an empty page. For
-example, if a client navigates past the last page or previous to the
-first page. It is up to the client to determine the boundaries of the
-collection, and not rely on "next" and "prev" to decide this. This can
-easily be done by starting at the first page and iterating forward until
-the API responds with an empty page.
+If the HTTP REST resource is a single resource, "next" and "prev" keys will
+be absent.  If the resource is a collection, "next" and "prev" keys *may*
+be present.
+
+Note, different endpoints have different rules about how they provide
+"next" and "prev" keys. Some endpoints indicate that the current payload
+is the end of a collection by returning a response that has no "next" key.
+Other endpoints always respond with a "next" key and indicate the end of
+a collection by returning an empty array as the payload value.
+It is up to the client to determine the boundaries of the collection.
+The mere existence of a "next" or "prev" link is not sufficient to decide this.
+
+A generally applicable algorithm to visit all the pages in a collection is to
+start at the first page and iterate forward until the API responds with either
+no "next" link or an empty payload.
 
 
 ## Containers [/containers]
@@ -85,68 +113,69 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
 
             {
             "payload": [
-             {
-              "id": "DRAGNDROPWASTE_00022",
-              "containerType": "roll off",
-              "contentType": "refuse",
-              "cubicYards": 20,
-              "description": "20-0013",
-              "externalId": "7J2TT262M2PX",
-              "hasAccuratePosition": true,
-              "lastClassifiedCameraBlocked": false,
-              "lastGpsIsAccurate": true,
-              "lastImageTimestamp": "2018-10-15T20:06:19.780Z",
-              "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/36731111-1111-1111-1111-c7c82e7fc79e",
-              "level": 0,
-              "location": {},
-              "locationUpdatedAt": "2018-08-11T06:03:51.922Z",
-              "latitude": 37.771789,
-              "longitude": -122.407272,
-              "maybeLastEmptiedAt": "2018-06-12T19:58:11.000Z",
-              "pendingClassification": true,
-              "positionAccuracy": 15,
-              "technicianAssigned": true,
-              "updatedAt": "2019-07-23T23:54:26.057Z"
-            },
-            {
-              "id": "DRAGNDROPWASTE_00023",
-              "containerType": "roll off",
-              "contentType": "refuse",
-              "cubicYards": 20,
-              "description": "20-0014",
-              "externalId": "NDHSYG067HN4",
-              "hasAccuratePosition": true,
-              "lastClassifiedCameraBlocked": true,
-              "lastGpsIsAccurate": true,
-              "lastImageTimestamp": "2019-07-26T20:39:56.922Z",
-              "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/1da61111-1111-1111-1111-0ed886d837f1",
-              "level": 100,
-              "location": {
-                "id": "090c1111-1111-1111-1111-789838c8d804",
-                "externalId": null,
-                "description": "Travis County Landfill",
-                "street": "9600 812 Rd",
-                "city": "Austin",
-                "state": "Texas",
-                "postalCode": "78719",
-                "zip": "78719"
+               {
+                "id": "DRAGNDROPWASTE_00022",
+                "containerType": "roll off",
+                "contentType": "refuse",
+                "cubicYards": 20,
+                "description": "20-0013",
+                "externalId": "7J2TT262M2PX",
+                "hasAccuratePosition": true,
+                "lastClassifiedCameraBlocked": false,
+                "lastGpsIsAccurate": true,
+                "lastImageTimestamp": "2018-10-15T20:06:19.780Z",
+                "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/36731111-1111-1111-1111-c7c82e7fc79e",
+                "level": 0,
+                "location": {},
+                "locationUpdatedAt": "2018-08-11T06:03:51.922Z",
+                "latitude": 37.771789,
+                "longitude": -122.407272,
+                "maybeLastEmptiedAt": "2018-06-12T19:58:11.000Z",
+                "pendingClassification": true,
+                "positionAccuracy": 15,
+                "technicianAssigned": true,
+                "updatedAt": "2019-07-23T23:54:26.057Z"
               },
-              "locationUpdatedAt": "2019-07-25T22:39:55.392Z",
-              "latitude": 30.210447,
-              "longitude": -97.850021,
-              "maybeLastEmptiedAt": "2018-06-27T21:02:13.000Z",
-              "pendingClassification": false,
-              "positionAccuracy": 30,
-              "technicianAssigned": false,
-              "updatedAt": "2019-07-26T20:41:33.851Z"
-            }
+              {
+                "id": "DRAGNDROPWASTE_00023",
+                "containerType": "roll off",
+                "contentType": "refuse",
+                "cubicYards": 20,
+                "description": "20-0014",
+                "externalId": "NDHSYG067HN4",
+                "hasAccuratePosition": true,
+                "lastClassifiedCameraBlocked": true,
+                "lastGpsIsAccurate": true,
+                "lastImageTimestamp": "2019-07-26T20:39:56.922Z",
+                "lastImageUrl": "https://images.staging.compology.com/1/raw_device_data/1da61111-1111-1111-1111-0ed886d837f1",
+                "level": 100,
+                "location": {
+                  "id": "090c1111-1111-1111-1111-789838c8d804",
+                  "externalId": null,
+                  "description": "Travis County Landfill",
+                  "street": "9600 812 Rd",
+                  "city": "Austin",
+                  "state": "Texas",
+                  "postalCode": "78719",
+                  "zip": "78719"
+                },
+                "locationUpdatedAt": "2019-07-25T22:39:55.392Z",
+                "latitude": 30.210447,
+                "longitude": -97.850021,
+                "maybeLastEmptiedAt": "2018-06-27T21:02:13.000Z",
+                "pendingClassification": false,
+                "positionAccuracy": 30,
+                "technicianAssigned": false,
+                "updatedAt": "2019-07-26T20:41:33.851Z"
+              }
             ],
-              "client": [
-                "X-Compology-Version: 2019-07-25/1"
-              ]
+            "client": [
+              "X-Compology-Version: 2019-07-25/1"
+            ],
+            "next": "https://containers-api.compology.com/v2/containers/?cursor=eyJkaXJlY3Rpb240YWIwNGZmIn0%3D"
             }
 
-## Containers for a Customer [/customers/:customerId/containers]
+## Containers for a Customer [/customers/{customerId}/containers]
 
 ### List All Containers [GET]
 
@@ -165,7 +194,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/<customer id>/co
 + Response 200 (application/json)
 
     + Body
-    
+
             {
               "payload": [
                 {
@@ -203,10 +232,11 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/<customer id>/co
               ],
               "client": [ 
                 "X-Compology-Version: 2019-07-25/1"
-              ]
+              ],
+              "next": "https://containers-api.compology.com/v2/TEHAMA123/containers/?cursor=eyJkaXJlY3Rpb240YWIwNGZmIn0%3D"
             }
-            
-## Containers for a Customer by external ID [/customers/e/:externalCustomerId/containers]
+
+## Containers for a Customer by external ID [/customers/e/{externalCustomerId}/containers]
 
 ### List All Containers [GET]
 
@@ -225,7 +255,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external cust
 + Response 200 (application/json)
 
     + Body
-    
+
             {
               "payload": [
                 {
@@ -266,8 +296,9 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external cust
               ]
             }
 
+<!--
 
-## Device Posts for a Container [/containers/:containerId/device_posts]
+## Device Posts for a Container [/containers/{containerId}/device_posts]
 
 ### List All Device Posts [GET]
 
@@ -384,8 +415,10 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
               "prev": "https://containers-api.staging.compology.com/v2/containers/DRAGNDROPWASTE_00014/device_posts?cursor=eyJkaXJlY3Rpb24iOiJwcmV2aW91cyIsInJhd0RldmljZURhdGFJbWFnZVRpbWVzdGFtcCI6IjIwMTktMDctMjZUMjI6MTk6MDcuNzk5WiIsInJhd0RldmljZURhdGFJZCI6IjljMzNlYmRhLWIxNmYtNDA1Ni1iZWQ3LTA0YmNiY2RlYWJiYSJ9",
               "next": "https://containers-api.staging.compology.com/v2/containers/DRAGNDROPWASTE_00014/device_posts?cursor=eyJkaXJlY3Rpb24iOiJuZXh0IiwicmF3RGV2aWNlRGF0YUltYWdlVGltZXN0YW1wIjoiMjAxOS0wNi0yOFQwNDoyNDo0MC44MzFaIiwicmF3RGV2aWNlRGF0YUlkIjoiMTI4NjM1MDEtMjAwMy00ZDNkLTk5NDQtYjE1OWY0YWIwNGZmIn0%3D"
             }
-            
-## Device Post by ID [/containers/:containerId/device_posts/:devicePostId]
+
+-->
+
+## Device Post by ID [/containers/{containerId}/device_posts/{devicePostId}]
 
 ### Get Device Post [GET]
 
@@ -399,7 +432,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
 + Response 200 (application/json)
 
     + Body
-    
+
             {
               "payload": {
                 "id": "770771d5-b189-4b6e-aeb4-53e7958e5fc0",
@@ -433,10 +466,10 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
               },  
               "client": [
                 "X-Compology-Version: 2019-07-25/1"
-              ]   
+              ]
             }
 
-## Device Post by Timestamp [/containers/:containerId/device_posts/occurred_at/:timestamp]
+## Device Post by Timestamp [/containers/{containerId}/device_posts/occurred_at/{timestamp}]
 
 ### Get Device Post [GET]
 
@@ -457,7 +490,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
 + Response 200 (application/json)
 
     + Body
-    
+
             {
               "payload": {
                 "id": "77071111-1111-1111-1111-53e7958e5fc0",
@@ -491,5 +524,6 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
               },  
               "client": [
                 "X-Compology-Version: 2019-07-25/1"
-              ]   
+              ]
             }
+
