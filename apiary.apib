@@ -35,8 +35,8 @@ the API, this token shall be included in the `Authorization` header.
 The header shall be formatted thusly: `Bearer <your token>`.
 
 ## Rate limiting
-Compology's current rate limiting policy is `50` requests every `30` seconds. 
-A higher frequency of requests will result in rate limiting. 
+Compology's current rate limiting policy is `50` requests every `30` seconds.
+A higher frequency of requests will result in rate limiting.
 
 All requests return headers similar to these:
 ```
@@ -46,7 +46,7 @@ All requests return headers similar to these:
 'x-ratelimit-reset': 'Mon, 02 Dec 2019 23:50:07 GMT'
 ```
 
-If your application requires higher limits than these, please contact support. 
+If your application requires higher limits than these, please contact support.
 
 ## Error handling
 
@@ -97,7 +97,8 @@ is the end of a collection by returning a response that has no "next" key.
 Other endpoints always respond with a "next" key and indicate the end of
 a collection by returning an empty array as the payload value.
 It is up to the client to determine the boundaries of the collection.
-The mere existence of a "next" or "prev" link is not sufficient to decide this.
+The mere existence of a "next" or "prev" link is not always sufficient to
+decide this.
 
 A generally applicable algorithm to visit all the pages in a collection is to
 start at the first page and iterate forward until the API responds with either
