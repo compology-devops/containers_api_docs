@@ -107,6 +107,10 @@ no "next" link or an empty payload.
 
 ## Login [/login]
 
+The `/login` endpoint can be used to get a new authorization token.
+You may choose to get your token via this API method, or via the
+web app.
+
 ### Your Authorization Token [GET]
 
 #### example
@@ -135,7 +139,7 @@ curl -H "Content-Type: application/json" ${BASE}/login --data '{"email":"...","p
 ### List All Containers [GET]
 
 + Parameters
- + cursor (optional)
+ + cursor: (optional)
 
 #### example
 ```bash
@@ -241,7 +245,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
 ### List All Device Posts [GET]
 
 + Parameters
- + cursor (optional)
+ + cursor: (optional)
 
 #### example
 ```bash
@@ -470,7 +474,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
 This endpoint uses the *internal* ID for the Customer.
 
 + Parameters
- + cursor (optional)
+ + cursor: (optional)
 
 #### example
 ```bash
@@ -541,7 +545,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/<customer id>/co
 ### List All Containers [GET]
 
 + Parameters
- + cursor (optional)
+ + cursor: (optional)
 
 
 This endpoint uses the *external* ID for the Customer.
