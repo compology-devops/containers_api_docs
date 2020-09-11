@@ -105,6 +105,31 @@ start at the first page and iterate forward until the API responds with either
 no "next" link or an empty payload.
 
 
+## Login [/login]
+
+### Your Authorization Token [GET]
+
+#### example
+
+```bash
+export BASE=https://containers-api.compology.com/v2
+curl -H "Content-Type: application/json" ${BASE}/login --data '{"email":"...","password":"..."}'
+```
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+            "payload": {
+              "token": "eyJ00000000IUzI1NiIkpXVCJ9.eyJv00000000InJlYWxwYWdlIiwidXNlcklkI0000000DF9.0mx00000000q_Xw6woMj8Z-LILT4wu1vfQHTtTgcMUo"
+            },
+            "client": [
+              "X-Compology-Version: 2019-07-25/1",
+              "Authorization: Bearer eyJ00000000IUzI1NiIkpXVCJ9.eyJv00000000InJlYWxwYWdlIiwidXNlcklkI0000000DF9.0mx00000000q_Xw6woMj8Z-LILT4wu1vfQHTtTgcMUo"
+            ]
+            }
+
 ## Containers [/containers]
 
 ### List All Containers [GET]
@@ -210,152 +235,6 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
             ],
             "next": "https://containers-api.compology.com/v2/containers/?cursor=eyJkaXJlY3Rpb240YWIwNGZmIn0%3D"
             }
-
-## Containers for a Customer [/customers/{customerId}/containers]
-
-### List All Containers [GET]
-
-This endpoint uses the *internal* ID for the Customer.
-
-#### Parameters
- * `cursor` optional
-
-#### example
-```bash
-export BASE=https://containers-api.compology.com/v2
-export AUTH="Authorization: Bearer <your auth token>"
-curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/<customer id>/containers
-```
-
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-              "payload": [
-                {
-                  "id": "DRAGNDROPWASTE_00014",
-                  "containerType": "roll off",
-                  "contentType": "refuse",
-                  "cubicYards": 20,
-                  "description": "20-0009",
-                  "externalId": "YRTRPS4HCB91",
-                  "hasAccuratePosition": true,
-                  "lastClassifiedCameraBlocked": false,
-                  "lastGpsIsAccurate": true,
-                  "lastImageTimestamp": "2019-07-26T22:19:07.799Z",
-                  "lastImageUrl": "https://images.compology.com/1/raw_device_data/1c331111-1111-1111-1111-04bcbcdeabba",
-                  "level": 70,
-                  "location": {
-                    "id": "71e21111-1111-1111-1111-11f12747b600",
-                    "externalId": null,
-                    "description": "Zellers",
-                    "street": "473 Tehama Street, #B",
-                    "city": "San Francisco",
-                    "state": "CA",
-                    "postalCode": "94103",
-                    "zip": "94103"
-                  },
-                  "locationUpdatedAt": "2019-07-19T19:52:40.988Z",
-                  "latitude": 30.312946,
-                  "longitude": -97.986297,
-                  "maybeLastEmptiedAt": "2019-06-18T20:10:17.000Z",
-                  "pendingClassification": true,
-                  "pickupSchedule": {
-                    "currency": "usd",
-                    "frequency": "weekly",
-                    "friday": false,
-                    "monday": true,
-                    "price": "120.00",
-                    "saturday": false,
-                    "sunday": false,
-                    "thursday": true,
-                    "tuesday": false,
-                    "wednesday": false
-                  },
-                  "positionAccuracy": 9.3,
-                  "technicianAssigned": false,
-                  "updatedAt": "2019-07-26T22:21:24.240Z"
-                }
-              ],
-              "client": [ 
-                "X-Compology-Version: 2019-07-25/1"
-              ],
-              "next": "https://containers-api.compology.com/v2/TEHAMA123/containers/?cursor=eyJkaXJlY3Rpb240YWIwNGZmIn0%3D"
-            }
-
-## Containers for a Customer by external ID [/customers/e/{externalCustomerId}/containers]
-
-### List All Containers [GET]
-
-This endpoint uses the *external* ID for the Customer.
-
-#### Parameters
- * `cursor` optional
-
-#### example
-```bash
-export BASE=https://containers-api.compology.com/v2
-export AUTH="Authorization: Bearer <your auth token>"
-curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external customer id>/containers
-```
-
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-              "payload": [
-                {
-                  "id": "DRAGNDROPWASTE_00014",
-                  "containerType": "roll off",
-                  "contentType": "refuse",
-                  "cubicYards": 20,
-                  "description": "20-0009",
-                  "externalId": "YRTRPS4HCB91",
-                  "hasAccuratePosition": true,
-                  "lastClassifiedCameraBlocked": false,
-                  "lastGpsIsAccurate": true,
-                  "lastImageTimestamp": "2019-07-26T22:19:07.799Z",
-                  "lastImageUrl": "https://images.compology.com/1/raw_device_data/1c331111-1111-1111-1111-04bcbcdeabba",
-                  "level": 70,
-                  "location": {
-                    "id": "71e21111-1111-1111-1111-11f12747b600",
-                    "externalId": null,
-                    "description": "Zellers",
-                    "street": "473 Tehama Street, #B",
-                    "city": "San Francisco",
-                    "state": "CA",
-                    "postalCode": "94103",
-                    "zip": "94103"
-                  },
-                  "locationUpdatedAt": "2019-07-19T19:52:40.988Z",
-                  "latitude": 30.312946,
-                  "longitude": -97.986297,
-                  "maybeLastEmptiedAt": "2019-06-18T20:10:17.000Z",
-                  "pendingClassification": true,
-                  "pickupSchedule": {
-                    "currency": "usd",
-                    "frequency": "weekly",
-                    "friday": false,
-                    "monday": true,
-                    "price": "120.00",
-                    "saturday": false,
-                    "sunday": false,
-                    "thursday": true,
-                    "tuesday": false,
-                    "wednesday": false
-                  },
-                  "positionAccuracy": 9.3,
-                  "technicianAssigned": false,
-                  "updatedAt": "2019-07-26T22:21:24.240Z"
-                }
-              ],
-              "client": [ 
-                "X-Compology-Version: 2019-07-25/1"
-              ]
-            }
-
 
 ## Device Posts for a Container [/containers/{containerId}/device_posts]
 
@@ -584,3 +463,206 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
                 "X-Compology-Version: 2019-07-25/1"
               ]
             }
+## Containers for a Customer [/customers/{customerId}/containers]
+
+### List All Containers [GET]
+
+This endpoint uses the *internal* ID for the Customer.
+
+#### Parameters
+ * `cursor` optional
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/<customer id>/containers
+```
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payload": [
+                {
+                  "id": "DRAGNDROPWASTE_00014",
+                  "containerType": "roll off",
+                  "contentType": "refuse",
+                  "cubicYards": 20,
+                  "description": "20-0009",
+                  "externalId": "YRTRPS4HCB91",
+                  "hasAccuratePosition": true,
+                  "lastClassifiedCameraBlocked": false,
+                  "lastGpsIsAccurate": true,
+                  "lastImageTimestamp": "2019-07-26T22:19:07.799Z",
+                  "lastImageUrl": "https://images.compology.com/1/raw_device_data/1c331111-1111-1111-1111-04bcbcdeabba",
+                  "level": 70,
+                  "location": {
+                    "id": "71e21111-1111-1111-1111-11f12747b600",
+                    "externalId": null,
+                    "description": "Zellers",
+                    "street": "473 Tehama Street, #B",
+                    "city": "San Francisco",
+                    "state": "CA",
+                    "postalCode": "94103",
+                    "zip": "94103"
+                  },
+                  "locationUpdatedAt": "2019-07-19T19:52:40.988Z",
+                  "latitude": 30.312946,
+                  "longitude": -97.986297,
+                  "maybeLastEmptiedAt": "2019-06-18T20:10:17.000Z",
+                  "pendingClassification": true,
+                  "pickupSchedule": {
+                    "currency": "usd",
+                    "frequency": "weekly",
+                    "friday": false,
+                    "monday": true,
+                    "price": "120.00",
+                    "saturday": false,
+                    "sunday": false,
+                    "thursday": true,
+                    "tuesday": false,
+                    "wednesday": false
+                  },
+                  "positionAccuracy": 9.3,
+                  "technicianAssigned": false,
+                  "updatedAt": "2019-07-26T22:21:24.240Z"
+                }
+              ],
+              "client": [ 
+                "X-Compology-Version: 2019-07-25/1"
+              ],
+              "next": "https://containers-api.compology.com/v2/TEHAMA123/containers/?cursor=eyJkaXJlY3Rpb240YWIwNGZmIn0%3D"
+            }
+
+## Containers for a Customer by external ID [/customers/e/{externalCustomerId}/containers]
+
+### List All Containers [GET]
+
+This endpoint uses the *external* ID for the Customer.
+
+#### Parameters
+ * `cursor` optional
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external customer id>/containers
+```
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payload": [
+                {
+                  "id": "DRAGNDROPWASTE_00014",
+                  "containerType": "roll off",
+                  "contentType": "refuse",
+                  "cubicYards": 20,
+                  "description": "20-0009",
+                  "externalId": "YRTRPS4HCB91",
+                  "hasAccuratePosition": true,
+                  "lastClassifiedCameraBlocked": false,
+                  "lastGpsIsAccurate": true,
+                  "lastImageTimestamp": "2019-07-26T22:19:07.799Z",
+                  "lastImageUrl": "https://images.compology.com/1/raw_device_data/1c331111-1111-1111-1111-04bcbcdeabba",
+                  "level": 70,
+                  "location": {
+                    "id": "71e21111-1111-1111-1111-11f12747b600",
+                    "externalId": null,
+                    "description": "Zellers",
+                    "street": "473 Tehama Street, #B",
+                    "city": "San Francisco",
+                    "state": "CA",
+                    "postalCode": "94103",
+                    "zip": "94103"
+                  },
+                  "locationUpdatedAt": "2019-07-19T19:52:40.988Z",
+                  "latitude": 30.312946,
+                  "longitude": -97.986297,
+                  "maybeLastEmptiedAt": "2019-06-18T20:10:17.000Z",
+                  "pendingClassification": true,
+                  "pickupSchedule": {
+                    "currency": "usd",
+                    "frequency": "weekly",
+                    "friday": false,
+                    "monday": true,
+                    "price": "120.00",
+                    "saturday": false,
+                    "sunday": false,
+                    "thursday": true,
+                    "tuesday": false,
+                    "wednesday": false
+                  },
+                  "positionAccuracy": 9.3,
+                  "technicianAssigned": false,
+                  "updatedAt": "2019-07-26T22:21:24.240Z"
+                }
+              ],
+              "client": [ 
+                "X-Compology-Version: 2019-07-25/1"
+              ]
+            }
+
+
+## Feed-style Device Posts [/device_posts]
+
+
++ Parameters
+ + updatedAfter: `2020-01-01T12:00` (string, required) - An ISO8601 date
+ + updatedBefore: `2020-01-01T12:00` (string, required) - An ISO8601 date
+
+### List All Device Posts [GET]
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/
+```
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payload": [
+              ],
+              "client": [ 
+                "X-Compology-Version: 2019-07-25/1"
+              ]
+            }
+
+
+## Feed-style Fill Cycles [/fill_cycles]
+
+### List All Fill Cycles [GET]
+
++ Parameters
+ + updatedAfter: `2020-01-01T12:00` (string, required) - An ISO8601 date
+ + updatedBefore: `2020-01-01T12:00` (string, required) - An ISO8601 date
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/
+```
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payload": [
+              ],
+              "client": [ 
+                "X-Compology-Version: 2019-07-25/1"
+              ]
+            }
+
+
