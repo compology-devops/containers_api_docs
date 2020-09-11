@@ -138,15 +138,15 @@ curl -H "Content-Type: application/json" ${BASE}/login --data '{"email":"...","p
 
 ### List All Containers [GET]
 
-+ Parameters
- + cursor: (string, optional)
-
 #### example
 ```bash
 export BASE=https://containers-api.compology.com/v2
 export AUTH="Authorization: Bearer <your auth token>"
 curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
 ```
+
++ Parameters
+ + cursor: (string, optional)
 
 + Response 200 (application/json)
 
@@ -244,15 +244,15 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
 
 ### List All Device Posts [GET]
 
-+ Parameters
- + cursor: (string, optional)
-
 #### example
 ```bash
 export BASE=https://containers-api.compology.com/v2
 export AUTH="Authorization: Bearer <your auth token>"
 curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/device_posts
 ```
+
++ Parameters
+ + cursor: (string, optional)
 
 + Response 200 (application/json)
 
@@ -467,14 +467,12 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
                 "X-Compology-Version: 2019-07-25/1"
               ]
             }
+
 ## Containers for a Customer [/customers/{customerId}/containers]
 
 ### List All Containers [GET]
 
 This endpoint uses the *internal* ID for the Customer.
-
-+ Parameters
- + cursor: (string, optional)
 
 #### example
 ```bash
@@ -482,6 +480,9 @@ export BASE=https://containers-api.compology.com/v2
 export AUTH="Authorization: Bearer <your auth token>"
 curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/<customer id>/containers
 ```
+
++ Parameters
+ + cursor: (string, optional)
 
 + Response 200 (application/json)
 
@@ -544,10 +545,6 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/<customer id>/co
 
 ### List All Containers [GET]
 
-+ Parameters
- + cursor: (string, optional)
-
-
 This endpoint uses the *external* ID for the Customer.
 
 #### example
@@ -556,6 +553,9 @@ export BASE=https://containers-api.compology.com/v2
 export AUTH="Authorization: Bearer <your auth token>"
 curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external customer id>/containers
 ```
+
++ Parameters
+ + cursor: (string, optional)
 
 + Response 200 (application/json)
 
@@ -618,17 +618,16 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external cust
 
 ### List All Device Posts [GET]
 
-+ Parameters
- + updatedAfter: `2020-01-01T12:00` (string, required) - An ISO8601 date
- + updatedBefore: `2020-01-01T12:00` (string, required) - An ISO8601 date
-
-
 #### example
 ```bash
 export BASE=https://containers-api.compology.com/v2
 export AUTH="Authorization: Bearer <your auth token>"
 curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/
 ```
+
++ Parameters
+ + updatedAfter: `2020-01-01T12:00` (string, required) - An ISO8601 date
+ + updatedBefore: `2020-01-01T12:00` (string, required) - An ISO8601 date
 
 + Response 200 (application/json)
 
@@ -647,16 +646,16 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/
 
 ### List All Fill Cycles [GET]
 
-+ Parameters
- + updatedAfter: `2020-01-01T12:00` (string, required) - An ISO8601 date
- + updatedBefore: `2020-01-01T12:00` (string, required) - An ISO8601 date
-
 #### example
 ```bash
 export BASE=https://containers-api.compology.com/v2
 export AUTH="Authorization: Bearer <your auth token>"
 curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/
 ```
+
++ Parameters
+ + updatedAfter: `2020-01-01T12:00` (string, required) - An ISO8601 date
+ + updatedBefore: `2020-01-01T12:00` (string, required) - An ISO8601 date
 
 + Response 200 (application/json)
 
