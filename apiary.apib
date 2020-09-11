@@ -134,8 +134,8 @@ curl -H "Content-Type: application/json" ${BASE}/login --data '{"email":"...","p
 
 ### List All Containers [GET]
 
-#### Parameters
- * `cursor` optional
++ Parameters
+ + cursor (optional)
 
 #### example
 ```bash
@@ -240,8 +240,8 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
 
 ### List All Device Posts [GET]
 
-#### Parameters
- * `cursor` optional
++ Parameters
+ + cursor (optional)
 
 #### example
 ```bash
@@ -469,8 +469,8 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
 
 This endpoint uses the *internal* ID for the Customer.
 
-#### Parameters
- * `cursor` optional
++ Parameters
+ + cursor (optional)
 
 #### example
 ```bash
@@ -540,10 +540,11 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/<customer id>/co
 
 ### List All Containers [GET]
 
-This endpoint uses the *external* ID for the Customer.
++ Parameters
+ + cursor (optional)
 
-#### Parameters
- * `cursor` optional
+
+This endpoint uses the *external* ID for the Customer.
 
 #### example
 ```bash
@@ -611,12 +612,12 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external cust
 
 ## Feed-style Device Posts [/device_posts]
 
+### List All Device Posts [GET]
 
 + Parameters
  + updatedAfter: `2020-01-01T12:00` (string, required) - An ISO8601 date
  + updatedBefore: `2020-01-01T12:00` (string, required) - An ISO8601 date
 
-### List All Device Posts [GET]
 
 #### example
 ```bash
