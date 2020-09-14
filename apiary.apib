@@ -618,6 +618,30 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external cust
 
 ### List All Device Posts [GET]
 
+Feed-style endpoints provide a way to "sync" data between a client and
+the Compology server.  By setting `updatedBefore` to the current time and
+`updatedAfter` to some time in the past, and paging through the results,
+a client can effectively get a copy of all the records in the Compology
+system.  By repeating this process (setting the `updatedAfter` time to
+equal the previous `updatedBefore` time), the two systems can be kept in
+sync.
+
+The query parameter `updatedAfter` is an inclusive bound -- eg, records
+that were updated exactly at the time specified by `updatedAfter` will be
+included in the response.
+
+The query parameter updatedBefore is an exclusive bound -- eg, records
+that were updated exactly at the time specified by `updatedBefore` will
+be excluded from the response.
+
+Neither `updatedAfter` nor `updatedBefore` may specify times in the future.
+
+The value of `updatedAfter` may not be greater than the value of `updatedBefore`.
+
+Any truncation of precision will be filled in with zeros, so eg,
+“updatedAfter=2020-01-01” will show all of Jan 1st’s records because it
+will be interpreted as “updatedAfter=2020-01-01:00:00:00.000”
+
 #### example
 ```bash
 export BASE=https://containers-api.compology.com/v2
@@ -778,6 +802,10 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/device_posts?updatedAfter=
 ## Feed-style Fill Cycles [/fill_cycles]
 
 ### List All Fill Cycles [GET]
+
+See the above `/device_posts` documentation for a description of
+"feed-style endpoints".  This `/fill_cycles` endpoint follows the same
+pattern and has the same constraints on `updatedAfter` and `updatedBefore`.
 
 #### example
 ```bash
