@@ -622,9 +622,9 @@ Feed-style endpoints provide a way to "sync" data between a client and
 the Compology server.  By setting `updatedBefore` to the current time and
 `updatedAfter` to some time in the past, and paging through the results,
 a client can effectively get a copy of all the records in the Compology
-system.  By repeating this process (setting the `updatedAfter` time to
-equal the previous `updatedBefore` time), the two systems can be kept in
-sync.
+system.  By repeating this process (at each iteration, setting the
+`updatedAfter` time to equal the previous `updatedBefore` time), the
+two systems can be kept in sync.
 
 The query parameter `updatedAfter` is an inclusive bound -- eg, records
 that were updated exactly at the time specified by `updatedAfter` will be
