@@ -613,6 +613,150 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external cust
               ]
             }
 
+## Containers for a Service Location [/locations/{locationId}/containers]
+
+### List All Containers [GET]
+
+This endpoint uses the *internal* ID for the Service Location.
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/locations/<location id>/containers
+```
+
++ Parameters
+ + cursor: (string, optional)
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payload": [
+                {
+                  "id": "1234NDROPWASTE_00014",
+                  "containerType": "roll off",
+                  "contentType": "refuse",
+                  "cubicYards": 20,
+                  "description": "20-0009",
+                  "externalId": "YRTRPS4HCB91",
+                  "hasAccuratePosition": true,
+                  "lastClassifiedCameraBlocked": false,
+                  "lastGpsIsAccurate": true,
+                  "lastImageTimestamp": "2019-07-26T22:19:07.799Z",
+                  "lastImageUrl": "https://images.compology.com/1/raw_device_data/12341111-1111-1111-1111-04bcbcdeabba",
+                  "level": 70,
+                  "location": {
+                    "id": "12341111-1111-1111-1111-11f12747b600",
+                    "externalId": null,
+                    "description": "Zellers",
+                    "street": "473 Tehama Street, #B",
+                    "city": "San Francisco",
+                    "state": "CA",
+                    "postalCode": "94103",
+                    "zip": "94103"
+                  },
+                  "locationUpdatedAt": "2019-07-19T19:52:40.988Z",
+                  "latitude": 30.312946,
+                  "longitude": -97.986297,
+                  "maybeLastEmptiedAt": "2019-06-18T20:10:17.000Z",
+                  "pendingClassification": true,
+                  "pickupSchedule": {
+                    "currency": "usd",
+                    "frequency": "weekly",
+                    "friday": false,
+                    "monday": true,
+                    "price": "120.00",
+                    "saturday": false,
+                    "sunday": false,
+                    "thursday": true,
+                    "tuesday": false,
+                    "wednesday": false
+                  },
+                  "positionAccuracy": 9.3,
+                  "technicianAssigned": false,
+                  "updatedAt": "2019-07-26T22:21:24.240Z"
+                }
+              ],
+              "client": [ 
+                "X-Compology-Version: 2019-07-25/1"
+              ],
+              "next": "https://containers-api.compology.com/v2/locations/12341111-1111-1111-1111-11f12747b600/containers/?cursor=eyJkaXJlY3Rpb240YWIwNGZmIn0%3D"
+            }
+
+## Containers for a Service Location by external ID [/locations/e/{externalLocationId}/containers]
+
+### List All Containers [GET]
+
+This endpoint uses the *external* ID for the Service Location.
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/locations/e/<external location id>/containers
+```
+
++ Parameters
+ + cursor: (string, optional)
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payload": [
+                {
+                  "id": "1234NDROPWASTE_00014",
+                  "containerType": "roll off",
+                  "contentType": "refuse",
+                  "cubicYards": 20,
+                  "description": "20-0009",
+                  "externalId": "YRTRPS4HCB91",
+                  "hasAccuratePosition": true,
+                  "lastClassifiedCameraBlocked": false,
+                  "lastGpsIsAccurate": true,
+                  "lastImageTimestamp": "2019-07-26T22:19:07.799Z",
+                  "lastImageUrl": "https://images.compology.com/1/raw_device_data/12341111-1111-1111-1111-04bcbcdeabba",
+                  "level": 70,
+                  "location": {
+                    "id": "12341111-1111-1111-1111-11f12747b600",
+                    "externalId": "BURGERHIM023",
+                    "description": "Burger Him",
+                    "street": "473 Tehama Street, #B",
+                    "city": "San Francisco",
+                    "state": "CA",
+                    "postalCode": "94103",
+                    "zip": "94103"
+                  },
+                  "locationUpdatedAt": "2019-07-19T19:52:40.988Z",
+                  "latitude": 30.312946,
+                  "longitude": -97.986297,
+                  "maybeLastEmptiedAt": "2019-06-18T20:10:17.000Z",
+                  "pendingClassification": true,
+                  "pickupSchedule": {
+                    "currency": "usd",
+                    "frequency": "weekly",
+                    "friday": false,
+                    "monday": true,
+                    "price": "120.00",
+                    "saturday": false,
+                    "sunday": false,
+                    "thursday": true,
+                    "tuesday": false,
+                    "wednesday": false
+                  },
+                  "positionAccuracy": 9.3,
+                  "technicianAssigned": false,
+                  "updatedAt": "2019-07-26T22:21:24.240Z"
+                }
+              ],
+              "client": [ 
+                "X-Compology-Version: 2019-07-25/1"
+              ]
+            }
 
 ## Feed-style Device Posts [/device_posts]
 
@@ -1128,4 +1272,35 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/fill_cycles?updatedAfter=2
               "next": "https://containers-api.compology.com/v2/fill_cycles?cursor=eyJoYXVsSWQiOiJwZDk5OWEiLCJ1cGRhdGVkQWZ0ZXIiOiIyMDIwLT00000000IwOjE1OjAxLjU1MTA1MiswMCIsInVwZGF0ZWRCZWZvcmUiOiIyMDIxLTAxLTAxIn0%3D"
             }
 
+
+## Set the collection schedule for a container [/containers/{containerId}/collection_schedule]
+
+### Set the collection schedule [PUT]
+
+Set the collection schedule for the container specified by the ID in the URL.
+
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl ...TODO
+```
+
++ Request (application/json)
+
+    + Attributes
+
+        + frequency: "weekly" (required)
+        + price: 45 (integer, required)
+        + currency: "usd" (string, required)
+        + monday: false (boolean, required)
+        + tuesday: false (boolean, required)
+        + wednesday: false (boolean, required)
+        + thursday: true (boolean, required)
+        + friday: false (boolean, required)
+        + saturday: false (boolean, required)
+        + sunday: false (boolean, required)
+
++ Response 200 (application/json)
 
