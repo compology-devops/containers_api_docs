@@ -159,6 +159,11 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
                 "containerType": "roll off",
                 "contentType": "refuse",
                 "cubicYards": 20,
+                "cumulativeContamination": {
+                  "plastic bag": {
+                    "count": 2
+                  }
+                },
                 "description": "20-0013",
                 "externalId": "7J2TT262M2PX",
                 "hasAccuratePosition": true,
@@ -173,6 +178,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
                 "longitude": -122.407272,
                 "maybeLastEmptiedAt": "2018-06-12T19:58:11.000Z",
                 "pendingClassification": true,
+                "pendingContaminationDecision": false,
                 "pickupSchedule": {
                     "currency": "usd",
                     "frequency": "weekly",
@@ -288,7 +294,18 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
                   "longitude": -97.986297,
                   "latLonRadius": 9.3,
                   "cameraBlocked": null,
-                  "imageUrl": "https://images.compology.com/1/raw_device_data/12341111-1111-1111-1111-04bcbcdeabba"
+                  "imageUrl": "https://images.compology.com/1/raw_device_data/12341111-1111-1111-1111-04bcbcdeabba",
+                  "pendingContaminationDecision": false,
+                  "cumulativeContamination": {
+                    "plastic bag": {
+                      "count": 2
+                    }
+                  },
+                  "visibleContamination": {
+                    "plastic bag": {
+                      "count": 1
+                    }
+                  }
                 },
                 {
                   "id": "12341111-1111-1111-1111-c0fcbb27485c",
@@ -403,8 +420,19 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
                 "longitude": -98.201553,
                 "latLonRadius": 24,
                 "cameraBlocked": false,
-                "imageUrl": "https://images.compology.com/1/raw_device_data/12341111-1111-1111-1111-53e7958e5fc0"
-              },  
+                "imageUrl": "https://images.compology.com/1/raw_device_data/12341111-1111-1111-1111-53e7958e5fc0",
+                "pendingContaminationDecision": false,
+                "cumulativeContamination": {
+                  "plastic bag": {
+                    "count": 2
+                  }
+                },
+                "visibleContamination": {
+                  "plastic bag": {
+                    "count": 1
+                  }
+                }
+              },
               "client": [
                 "X-Compology-Version: 2019-07-25/1"
               ]
@@ -461,8 +489,19 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
                 "longitude": -98.201553,
                 "latLonRadius": 24,
                 "cameraBlocked": false,
-                "imageUrl": "https://images.compology.com/1/raw_device_data/12341111-1111-1111-1111-53e7958e5fc0"
-              },  
+                "imageUrl": "https://images.compology.com/1/raw_device_data/12341111-1111-1111-1111-53e7958e5fc0",
+                "pendingContaminationDecision": false,
+                "cumulativeContamination": {
+                  "plastic bag": {
+                    "count": 2
+                  }
+                },
+                "visibleContamination": {
+                  "plastic bag": {
+                    "count": 1
+                  }
+                }
+              },
               "client": [
                 "X-Compology-Version: 2019-07-25/1"
               ]
@@ -495,6 +534,11 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/<customer id>/co
                   "containerType": "roll off",
                   "contentType": "refuse",
                   "cubicYards": 20,
+                  "cumulativeContamination": {
+                    "plastic bag": {
+                      "count": 2
+                    }
+                  },
                   "description": "20-0009",
                   "externalId": "YRTRPS4HCB91",
                   "hasAccuratePosition": true,
@@ -518,6 +562,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/<customer id>/co
                   "longitude": -97.986297,
                   "maybeLastEmptiedAt": "2019-06-18T20:10:17.000Z",
                   "pendingClassification": true,
+                  "pendingContaminationDecision": false,
                   "pickupSchedule": {
                     "currency": "usd",
                     "frequency": "weekly",
@@ -568,6 +613,11 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external cust
                   "containerType": "roll off",
                   "contentType": "refuse",
                   "cubicYards": 20,
+                  "cumulativeContamination": {
+                    "plastic bag": {
+                      "count": 2
+                    }
+                  },
                   "description": "20-0009",
                   "externalId": "YRTRPS4HCB91",
                   "hasAccuratePosition": true,
@@ -591,6 +641,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external cust
                   "longitude": -97.986297,
                   "maybeLastEmptiedAt": "2019-06-18T20:10:17.000Z",
                   "pendingClassification": true,
+                  "pendingContaminationDecision": false,
                   "pickupSchedule": {
                     "currency": "usd",
                     "frequency": "weekly",
@@ -640,6 +691,11 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/locations/<location id>/co
                   "containerType": "roll off",
                   "contentType": "refuse",
                   "cubicYards": 20,
+                  "cumulativeContamination": {
+                    "plastic bag": {
+                      "count": 2
+                    }
+                  },
                   "description": "20-0009",
                   "externalId": "YRTRPS4HCB91",
                   "hasAccuratePosition": true,
@@ -663,6 +719,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/locations/<location id>/co
                   "longitude": -97.986297,
                   "maybeLastEmptiedAt": "2019-06-18T20:10:17.000Z",
                   "pendingClassification": true,
+                  "pendingContaminationDecision": false,
                   "pickupSchedule": {
                     "currency": "usd",
                     "frequency": "weekly",
@@ -713,6 +770,11 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/locations/e/<external loca
                   "containerType": "roll off",
                   "contentType": "refuse",
                   "cubicYards": 20,
+                  "cumulativeContamination": {
+                    "plastic bag": {
+                      "count": 2
+                    }
+                  },
                   "description": "20-0009",
                   "externalId": "YRTRPS4HCB91",
                   "hasAccuratePosition": true,
@@ -736,6 +798,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/locations/e/<external loca
                   "longitude": -97.986297,
                   "maybeLastEmptiedAt": "2019-06-18T20:10:17.000Z",
                   "pendingClassification": true,
+                  "pendingContaminationDecision": false,
                   "pickupSchedule": {
                     "currency": "usd",
                     "frequency": "weekly",
