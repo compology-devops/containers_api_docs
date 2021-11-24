@@ -1554,6 +1554,88 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/fill_cycles?updatedAfter=2
             }
 
 
+## Feed-style Right Sizing Recommendations [/right_sizing_recommendations]
+
+### List All Right Sizing Recommendations [GET]
+
+See the above `/device_posts` documentation for a description of
+"feed-style endpoints".  This `/right_sizing_recommendations` endpoint
+follows the same pattern and has the same constraints on `updatedAfter`
+and `updatedBefore`.
+
+#### example
+```bash
+export BASE=https://containers-api.compology.com/v2
+export AUTH="Authorization: Bearer <your auth token>"
+curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/right_sizing_recommendations?updatedAfter=2021-01-01&updatedBefore=2022-01-01
+```
+
++ Parameters
+ + updatedAfter: `2020-01-01T12:00` (string, required) - An ISO8601 date
+ + updatedBefore: `2020-01-01T12:00` (string, required) - An ISO8601 date
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "payload": [
+              {
+                  "id": "0003a08f-d79d-4dc4-8c6b-8ffa5cc7beef",
+                  "dumpsterId": "1234NDROPWASTE_00014",
+                  "locationId": "56d8f702-5115-446a-a5be-cdfcc3e4beef",
+                  "frequency": "weekly",
+                  "sunday": false,
+                  "monday": false,
+                  "tuesday": false,
+                  "wednesday": true,
+                  "thursday": false,
+                  "friday": false,
+                  "saturday": true,
+                  "createdAt": "2021-09-16T12:01:01.147Z",
+                  "deletedAt": "2021-09-22T12:01:13.001Z",
+                  "updatedAt": "2021-11-10T23:21:26.967Z"
+                },
+                {
+                  "id": "0005807a-8347-4721-a7d9-c8b4c229beef",
+                  "dumpsterId": "1234NDROPWASTE_00022",
+                  "locationId": "dc9cd679-6916-492b-a454-393e3c30beef",
+                  "frequency": "weekly",
+                  "sunday": false,
+                  "monday": true,
+                  "tuesday": false,
+                  "wednesday": false,
+                  "thursday": false,
+                  "friday": true,
+                  "saturday": false,
+                  "createdAt": "2021-07-05T13:01:12.927Z",
+                  "deletedAt": "2021-08-14T13:01:08.488Z",
+                  "updatedAt": "2021-11-10T23:21:26.967Z"
+                },
+                {
+                  "id": "00067282-5e8a-40ee-809b-de6f1e1fbeef",
+                  "dumpsterId": "1234NDROPWASTE_00023",
+                  "locationId": "ceac6c62-9fba-46fd-a70c-4b81a17cbeef",
+                  "frequency": "weekly",
+                  "sunday": false,
+                  "monday": true,
+                  "tuesday": false,
+                  "wednesday": false,
+                  "thursday": false,
+                  "friday": false,
+                  "saturday": true,
+                  "createdAt": "2021-08-21T13:01:31.041Z",
+                  "deletedAt": "2021-09-09T13:01:28.562Z",
+                  "updatedAt": "2021-11-10T23:21:26.967Z"
+                },
+              ],
+              "client": [
+                "X-Compology-Version: 2019-07-25/1"
+              ]
+              "next": "https://containers-api.compology.com/v2/right_sizing_recommendations?cursor=eyJoYXVsSWQiOiJwZDk5OWEiLCJ1cGRhdGVkQWZ0ZXIiOiIyMDIwLT00000000IwOjE1OjAxLjU1MTA1MiswMCIsInVwZGF0ZWRCZWZvcmUiOiIyMDIxLTAxLTAxIn0%3D"
+            }
+
+
 ## Set the collection schedule for a container [/containers/{containerId}/collection_schedule]
 
 ### Set the collection schedule [PUT]
