@@ -670,6 +670,9 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/customers/e/<external cust
 
 This endpoint uses the *internal* ID for the Service Location.
 
+A notable feature of this endpoint is the inclusion of the fields `dumpsterFullnessIncreaseStats`
+and `fullnessAtPickupStats`. These fields contain statistics for each dumpster at this location. 
+
 #### example
 ```bash
 export BASE=https://containers-api.compology.com/v2
@@ -697,7 +700,112 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/locations/<location id>/co
                     }
                   },
                   "description": "20-0009",
+                  "dumpsterFullnessIncreaseStats": {
+                    "sunday": {
+                      "dayOfWeek": 0,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 0,
+                      "upperQuartileChange": 2,
+                      "maxChange": 7,
+                      "avgChange": 2,
+                      "stddevChange": 3,
+                      "postsCounted": 22,
+                      "daysCounted": 9
+                    },
+                    "monday": {
+                      "dayOfWeek": 1,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 0,
+                      "upperQuartileChange": 4,
+                      "maxChange": 6,
+                      "avgChange": 2,
+                      "stddevChange": 2,
+                      "postsCounted": 19,
+                      "daysCounted": 8
+                    },
+                    "tuesday": {
+                      "dayOfWeek": 2,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 0,
+                      "upperQuartileChange": 0,
+                      "maxChange": 6,
+                      "avgChange": 1,
+                      "stddevChange": 2,
+                      "postsCounted": 15,
+                      "daysCounted": 7
+                    },
+                    "wednesday": {
+                      "dayOfWeek": 3,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 0,
+                      "upperQuartileChange": 0,
+                      "maxChange": 1,
+                      "avgChange": 0,
+                      "stddevChange": 0,
+                      "postsCounted": 16,
+                      "daysCounted": 8
+                    },
+                    "thursday": {
+                      "dayOfWeek": 4,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 0,
+                      "upperQuartileChange": 2,
+                      "maxChange": 5,
+                      "avgChange": 1,
+                      "stddevChange": 2,
+                      "postsCounted": 17,
+                      "daysCounted": 7
+                    },
+                    "friday": {
+                      "dayOfWeek": 5,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 1,
+                      "upperQuartileChange": 5,
+                      "maxChange": 10,
+                      "avgChange": 3,
+                      "stddevChange": 4,
+                      "postsCounted": 17,
+                      "daysCounted": 9
+                    },
+                    "saturday": {
+                      "dayOfWeek": 6,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 0,
+                      "upperQuartileChange": 5,
+                      "maxChange": 12,
+                      "avgChange": 3,
+                      "stddevChange": 4,
+                      "postsCounted": 18,
+                      "daysCounted": 9
+                    }
+                  },
                   "externalId": "YRTRPS4HCB91",
+                  "fullnessAtPickupStats": {
+                    "sunday": null,
+                    "monday": {
+                      "dayOfWeek": 1,
+                      "pickupsDetected": 2,
+                      "minLevelAtPickup": 25,
+                      "lowerQuartileLevelAtPickup": 27.5,
+                      "medianLevelAtPickup": 30,
+                      "upperQuartileLevelAtPickup": 32.5,
+                      "maxLevelAtPickup": 35,
+                      "avgLevelAtPickup": 30,
+                      "stddevLevelAtPickup": 7
+                    },
+                    "tuesday": null,
+                    "wednesday": null,
+                    "thursday": null,
+                    "friday": null,
+                    "saturday": null
+                  },
                   "hasAccuratePosition": true,
                   "lastClassifiedCameraBlocked": false,
                   "lastGpsIsAccurate": true,
@@ -749,6 +857,9 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/locations/<location id>/co
 
 This endpoint uses the *external* ID for the Service Location.
 
+A notable feature of this endpoint is the inclusion of the fields `dumpsterFullnessIncreaseStats`
+and `fullnessAtPickupStats`. These fields contain statistics for each dumpster at this location. 
+
 #### example
 ```bash
 export BASE=https://containers-api.compology.com/v2
@@ -776,7 +887,112 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/locations/e/<external loca
                     }
                   },
                   "description": "20-0009",
+                  "dumpsterFullnessIncreaseStats": {
+                    "sunday": {
+                      "dayOfWeek": 0,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 0,
+                      "upperQuartileChange": 2,
+                      "maxChange": 7,
+                      "avgChange": 2,
+                      "stddevChange": 3,
+                      "postsCounted": 22,
+                      "daysCounted": 9
+                    },
+                    "monday": {
+                      "dayOfWeek": 1,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 0,
+                      "upperQuartileChange": 4,
+                      "maxChange": 6,
+                      "avgChange": 2,
+                      "stddevChange": 2,
+                      "postsCounted": 19,
+                      "daysCounted": 8
+                    },
+                    "tuesday": {
+                      "dayOfWeek": 2,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 0,
+                      "upperQuartileChange": 0,
+                      "maxChange": 6,
+                      "avgChange": 1,
+                      "stddevChange": 2,
+                      "postsCounted": 15,
+                      "daysCounted": 7
+                    },
+                    "wednesday": {
+                      "dayOfWeek": 3,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 0,
+                      "upperQuartileChange": 0,
+                      "maxChange": 1,
+                      "avgChange": 0,
+                      "stddevChange": 0,
+                      "postsCounted": 16,
+                      "daysCounted": 8
+                    },
+                    "thursday": {
+                      "dayOfWeek": 4,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 0,
+                      "upperQuartileChange": 2,
+                      "maxChange": 5,
+                      "avgChange": 1,
+                      "stddevChange": 2,
+                      "postsCounted": 17,
+                      "daysCounted": 7
+                    },
+                    "friday": {
+                      "dayOfWeek": 5,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 1,
+                      "upperQuartileChange": 5,
+                      "maxChange": 10,
+                      "avgChange": 3,
+                      "stddevChange": 4,
+                      "postsCounted": 17,
+                      "daysCounted": 9
+                    },
+                    "saturday": {
+                      "dayOfWeek": 6,
+                      "minChange": 0,
+                      "lowerQuartileChange": 0,
+                      "medianChange": 0,
+                      "upperQuartileChange": 5,
+                      "maxChange": 12,
+                      "avgChange": 3,
+                      "stddevChange": 4,
+                      "postsCounted": 18,
+                      "daysCounted": 9
+                    }
+                  },
                   "externalId": "YRTRPS4HCB91",
+                  "fullnessAtPickupStats": {
+                    "sunday": null,
+                    "monday": {
+                      "dayOfWeek": 1,
+                      "pickupsDetected": 2,
+                      "minLevelAtPickup": 25,
+                      "lowerQuartileLevelAtPickup": 27.5,
+                      "medianLevelAtPickup": 30,
+                      "upperQuartileLevelAtPickup": 32.5,
+                      "maxLevelAtPickup": 35,
+                      "avgLevelAtPickup": 30,
+                      "stddevLevelAtPickup": 7
+                    },
+                    "tuesday": null,
+                    "wednesday": null,
+                    "thursday": null,
+                    "friday": null,
+                    "saturday": null
+                  },
                   "hasAccuratePosition": true,
                   "lastClassifiedCameraBlocked": false,
                   "lastGpsIsAccurate": true,
