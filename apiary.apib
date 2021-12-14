@@ -200,6 +200,11 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers
                 "containerType": "roll off",
                 "contentType": "refuse",
                 "cubicYards": 20,
+                "cumulativeContamination": {
+                  "plastic bag": {
+                    "count": 2
+                  }
+                },
                 "description": "20-0014",
                 "externalId": "NDHSYG067HN4",
                 "hasAccuratePosition": true,
@@ -298,11 +303,6 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
                   "pendingContaminationDecision": false,
                   "cumulativeContamination": {
                     "plastic bag": {
-                      "count": 2
-                    }
-                  },
-                  "visibleContamination": {
-                    "plastic bag": {
                       "count": 1
                     }
                   }
@@ -335,7 +335,12 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
                   "longitude": -97.986305,
                   "latLonRadius": 25,
                   "cameraBlocked": null,
-                  "imageUrl": "https://images.compology.com/1/raw_device_data/12341111-1111-1111-1111-c0fcbb27485c"
+                  "imageUrl": "https://images.compology.com/1/raw_device_data/12341111-1111-1111-1111-c0fcbb27485c",
+                  "cumulativeContamination": {
+                    "plastic bag": {
+                      "count": 1
+                    }
+                  }
                 },
                 {
                   "id": "12341111-1111-1111-1111-b159f4ab04ff",
@@ -365,7 +370,12 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
                   "longitude": -98.201461,
                   "latLonRadius": 6.5,
                   "cameraBlocked": false,
-                  "imageUrl": "https://images.compology.com/1/raw_device_data/12341111-1111-1111-1111-b159f4ab04ff"
+                  "imageUrl": "https://images.compology.com/1/raw_device_data/12341111-1111-1111-1111-b159f4ab04ff",
+                  "cumulativeContamination": {
+                    "plastic bag": {
+                      "count": 1
+                    }
+                  }
                 }
               ],
               "client": [
@@ -427,11 +437,6 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
                     "count": 2
                   }
                 },
-                "visibleContamination": {
-                  "plastic bag": {
-                    "count": 1
-                  }
-                }
               },
               "client": [
                 "X-Compology-Version: 2019-07-25/1"
@@ -496,11 +501,6 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/containers/<container id>/
                     "count": 2
                   }
                 },
-                "visibleContamination": {
-                  "plastic bag": {
-                    "count": 1
-                  }
-                }
               },
               "client": [
                 "X-Compology-Version: 2019-07-25/1"
@@ -1099,7 +1099,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/device_posts?updatedAfter=
                   "fillCycleId": "1234cd7a-15ea-4e9c-bb8d-cdada66b9a36",
                   "locationId": "123428d2-85f3-456c-af87-dbf6f4857f86",
                   "pendingLocationMatch": false,
-                  "visibleContamination": {
+                  "cumulativeContamination": {
                     "plastic bag": {
                       "count": 2
                     },
@@ -1148,6 +1148,26 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/device_posts?updatedAfter=
                   "id": "12349b17-db8c-4f92-966f-5c6ec033b33c",
                   "organizationId": "EXCORP",
                   "containerId": "EXCORP_00021",
+                  "cumulativeContamination": {
+                    "plastic bag": {
+                      "count": 2
+                    },
+                    "bulky item": {
+                      "count": 0
+                    },
+                    "tanglers": {
+                      "count": 0
+                    },
+                    "e-waste": {
+                      "count": 0
+                    },
+                    "uncollapsed cardboard box": {
+                      "count": 0
+                    },
+                    "styrofoam": {
+                      "count": 0
+                    }
+                  },
                   "occurredAt": "2020-09-01T00:56:42.222Z",
                   "updatedAt": "2020-09-01T01:02:41.720Z",
                   "level": 10,
@@ -1159,17 +1179,6 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/device_posts?updatedAfter=
                   "fillCycleId": "12344b93-e9b7-4758-bf98-943d05770a2e",
                   "locationId": null,
                   "pendingLocationMatch": true,
-                  "visibleContamination": {
-                    "bulky item": {
-                      "count": 0
-                    },
-                    "e-waste": {
-                      "count": 0
-                    },
-                    "uncollapsed cardboard box": {
-                      "count": 0
-                    }
-                  },
                   "pendingContaminationAnalysis": false,
                   "visibleContent": {
                     "bulky item": {
@@ -1201,7 +1210,7 @@ curl -H 'Accept: application/json' -H "$AUTH" ${BASE}/device_posts?updatedAfter=
                   "fillCycleId": "12346d35-9f93-4050-a497-1e32830adb01",
                   "locationId": null,
                   "pendingLocationMatch": true,
-                  "visibleContamination": {
+                  "cumulativeontamination": {
                     "bulky item": {},
                     "e-waste": {},
                     "uncollapsed cardboard box": {}
